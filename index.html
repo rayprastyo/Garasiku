@@ -6,21 +6,49 @@
     <title>GarasiKu Premium Pro</title>
     <style>
         :root {
-            /* Palet Warna Premium Pro (Ultra Modern Slate & Pure Indigo) */
+            /* Palet Warna Mode Light Default */
             --bg-main: #f8fafc;
             --bg-container: #ffffff;
-            --bg-card: #f1f5f9;
+            --bg-card: #ffffff;
             --bg-input: #f8fafc;
             --primary: #4f46e5;      
-            --primary-glow: rgba(79, 70, 229, 0.1);
-            --success: #059669;      
-            --success-glow: rgba(5, 150, 105, 0.1);
+            --primary-glow: rgba(79, 70, 229, 0.12);
+            --success: #10b981;      
             --text-main: #0f172a;    
             --text-muted: #64748b;   
             --border: #e2e8f0;
             --accent: #6366f1;
+            --header-bg: rgba(255, 255, 255, 0.85);
             --shadow-sm: 0 2px 8px rgba(15, 23, 42, 0.04);
             --shadow-md: 0 12px 34px rgba(15, 23, 42, 0.06);
+            --hero-bg: linear-gradient(135deg, #0f172a 0%, #1e293b 100%);
+            --hero-text: #ffffff;
+            --badge-bg: rgba(255, 255, 255, 0.2);
+            --badge-text: #ffffff;
+            --node-border: #f1f5f9;
+        }
+
+        /* Palet Warna Mode Dark (Profesional Dark Slate) */
+        [data-theme="dark"] {
+            --bg-main: #090d16;
+            --bg-container: #0f172a;
+            --bg-card: #1e293b;
+            --bg-input: #0f172a;
+            --primary: #6366f1;      
+            --primary-glow: rgba(99, 102, 241, 0.2);
+            --success: #34d399;      
+            --text-main: #f8fafc;    
+            --text-muted: #94a3b8;   
+            --border: #334155;
+            --accent: #818cf8;
+            --header-bg: rgba(15, 23, 42, 0.85);
+            --shadow-sm: 0 4px 12px rgba(0, 0, 0, 0.3);
+            --shadow-md: 0 12px 34px rgba(0, 0, 0, 0.5);
+            --hero-bg: linear-gradient(135deg, #1e1b4b 0%, #0f172a 100%);
+            --hero-text: #f8fafc;
+            --badge-bg: rgba(255, 255, 255, 0.15);
+            --badge-text: #f8fafc;
+            --node-border: #334155;
         }
 
         body {
@@ -34,23 +62,24 @@
             min-height: 100vh;
             overflow-x: hidden;
             -webkit-font-smoothing: antialiased;
+            transition: background-color 0.3s ease, color 0.3s ease;
         }
 
-        /* Simulator Layar Mobile Premium */
+        /* Responsive Mobile Container */
         .app-container {
             width: 100%;
-            max-width: 480px;
             background: var(--bg-container);
             min-height: 100vh;
             padding-bottom: 100px;
             box-sizing: border-box;
             position: relative;
-            box-shadow: 0 0 50px rgba(0,0,0,0.03);
+            box-shadow: var(--shadow-md);
+            transition: background-color 0.3s ease;
         }
 
         /* Header Frosted Glass */
         header {
-            padding: 20px 24px;
+            padding: 16px 20px;
             display: flex;
             justify-content: space-between;
             align-items: center;
@@ -58,13 +87,14 @@
             top: 0;
             backdrop-filter: blur(20px);
             -webkit-backdrop-filter: blur(20px);
-            background: rgba(255, 255, 255, 0.85);
+            background: var(--header-bg);
             z-index: 10;
-            border-bottom: 1px solid rgba(226, 232, 240, 0.8);
+            border-bottom: 1px solid var(--border);
+            transition: background-color 0.3s ease, border-color 0.3s ease;
         }
 
         header h1 {
-            font-size: 24px;
+            font-size: 22px;
             font-weight: 800;
             margin: 0;
             letter-spacing: -0.8px;
@@ -79,55 +109,68 @@
             color: var(--text-muted);
         }
 
-        /* Aksi Sinkronisasi Data */
-        .cloud-zone {
+        /* Container Tombol Aksi Header */
+        .header-actions {
             display: flex;
-            gap: 12px;
-            padding: 16px 24px;
-            background: #ffffff;
+            align-items: center;
+            gap: 8px;
         }
 
-        .btn-cloud {
-            flex: 1;
+        /* Style Umum Tombol Ikon Header */
+        .icon-btn {
             background: var(--bg-input);
             border: 1px solid var(--border);
             color: var(--text-main);
-            padding: 12px;
-            border-radius: 16px;
-            font-size: 13px;
-            font-weight: 600;
-            cursor: pointer;
+            width: 40px;
+            height: 40px;
+            border-radius: 12px;
             display: flex;
             align-items: center;
             justify-content: center;
-            gap: 8px;
+            cursor: pointer;
             transition: all 0.2s ease;
-        }
-
-        .btn-cloud:hover {
-            background: #edf2f7;
-            border-color: #cbd5e1;
-        }
-
-        .btn-cloud svg {
-            width: 16px;
-            height: 16px;
-            stroke: var(--text-muted);
-        }
-
-        .file-wrapper {
+            padding: 0;
             position: relative;
-            flex: 1;
         }
 
-        .file-wrapper input[type="file"] {
+        .icon-btn:hover {
+            border-color: var(--primary);
+            background: var(--primary-glow);
+        }
+
+        .icon-btn svg {
+            width: 18px;
+            height: 18px;
+            stroke: var(--text-main);
+            fill: none;
+            transition: transform 0.3s ease;
+        }
+
+        .icon-btn:active svg {
+            transform: scale(0.9);
+        }
+
+        /* File Input Transparan khusus Ikon Impor */
+        .icon-file-wrapper {
+            position: relative;
+            width: 40px;
+            height: 40px;
+        }
+
+        .icon-file-wrapper input[type="file"] {
             position: absolute;
-            left: 0; top: 0; opacity: 0; width: 100%; height: 100%; cursor: pointer;
+            left: 0; 
+            top: 0; 
+            opacity: 0; 
+            width: 100%; 
+            height: 100%; 
+            cursor: pointer;
+            z-index: 2;
         }
 
         /* Konten Halaman */
         .tab-content {
-            padding: 8px 24px 24px 24px;
+            padding: 20px 24px 24px 24px;
             display: none;
             animation: cubic-bezier(0.4, 0, 0.2, 1) fadeIn 0.4s forwards;
         }
@@ -143,9 +186,10 @@
 
         /* Form Premium Container */
         .card-modern {
-            background: #ffffff;
+            background: var(--bg-card);
             border-radius: 28px;
             margin-bottom: 20px;
+            transition: background-color 0.3s ease;
         }
 
         .form-group {
@@ -178,12 +222,12 @@
             outline: none;
             border-color: var(--primary);
             box-shadow: 0 0 0 4px var(--primary-glow);
-            background: #ffffff;
+            background: var(--bg-card);
         }
 
         input[readonly] {
             opacity: 0.6;
-            background: #e2e8f0;
+            background: var(--border);
             cursor: not-allowed;
         }
 
@@ -199,7 +243,7 @@
         /* Tombol Aksi Utama */
         .btn-primary {
             background: linear-gradient(135deg, var(--primary) 0%, #312e81 100%);
-            box-shadow: 0 8px 24px rgba(79, 70, 229, 0.25);
+            box-shadow: 0 8px 24px var(--primary-glow);
             color: #ffffff;
             border: none;
             padding: 18px;
@@ -222,60 +266,78 @@
 
         /* Kartu Ringkasan Finansial & Kendaraan */
         .vehicle-card {
-            background: #ffffff;
+            background: var(--bg-card);
             border: 1px solid var(--border);
-            border-radius: 28px;
+            border-radius: 24px;
             margin-bottom: 24px;
             overflow: hidden;
             box-shadow: var(--shadow-sm);
+            transition: background-color 0.3s ease, border-color 0.3s ease;
         }
 
+        /* Header Kartu Kendaraan Disatukan 1 Baris */
         .vehicle-hero {
-            padding: 20px 24px;
-            background: linear-gradient(135deg, #0f172a 0%, #1e293b 100%);
-            color: #ffffff;
+            padding: 16px 20px;
+            background: var(--hero-bg);
+            color: var(--hero-text);
             display: flex;
+            flex-direction: row;
             justify-content: space-between;
             align-items: center;
+            gap: 12px;
         }
 
-        .v-meta h3 {
+        .v-info-group {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            flex-wrap: wrap;
+            min-width: 0;
+        }
+
+        .v-meta-title {
             margin: 0;
-            font-size: 18px;
+            font-size: 16px;
             font-weight: 800;
-            letter-spacing: -0.4px;
+            letter-spacing: -0.3px;
+            white-space: nowrap;
+            overflow: hidden;
+            text-overflow: ellipsis;
+            color: #ffffff;
         }
 
         .v-badge {
-            background: rgba(255, 255, 255, 0.15);
-            backdrop-filter: blur(5px);
-            color: #ffffff;
-            padding: 6px 12px;
-            border-radius: 10px;
+            background: var(--badge-bg);
+            backdrop-filter: blur(8px);
+            color: var(--badge-text);
+            padding: 4px 10px;
+            border-radius: 8px;
             font-size: 12px;
             font-weight: 700;
-            display: inline-block;
-            margin-top: 8px;
             letter-spacing: 0.5px;
-            border: 1px solid rgba(255,255,255,0.1);
+            border: 1px solid rgba(255, 255, 255, 0.2);
+            white-space: nowrap;
         }
 
         .v-total-cost {
             text-align: right;
+            flex-shrink: 0;
         }
 
         .v-total-cost div {
-            font-size: 11px;
+            font-size: 10px;
             color: #94a3b8;
-            font-weight: 600;
+            font-weight: 700;
             text-transform: uppercase;
             letter-spacing: 0.5px;
         }
 
         .v-total-cost font {
-            font-size: 18px;
+            font-size: 16px;
             font-weight: 800;
-            color: #34d399;
+            color: var(--success);
+            display: block;
+            margin-top: 2px;
         }
 
         /* Daftar Riwayat Servis (Timeline) */
@@ -285,7 +347,7 @@
 
         .history-node {
             padding: 18px 0;
-            border-bottom: 1px solid #f1f5f9;
+            border-bottom: 1px solid var(--node-border);
         }
 
         .history-node:last-child {
@@ -298,11 +360,6 @@
             align-items: flex-start;
             font-weight: 700;
             font-size: 15px;
-        }
-
-        .node-top span:first-child {
-            max-width: 70%;
-            line-content: 1.4;
         }
 
         .node-sub {
@@ -319,7 +376,7 @@
             padding: 10px 14px;
             border-radius: 12px;
             margin-top: 8px;
-            color: #334155;
+            color: var(--text-main);
             display: block;
             border: 1px solid var(--border);
         }
@@ -346,13 +403,13 @@
             width: 14px;
             height: 14px;
         }
-        .action-edit { color: #d97706; }
-        .action-delete { color: #e11d48; }
+        .action-edit { color: #f59e0b; }
+        .action-delete { color: #f43f5e; }
 
-        /* Kustom Grid Checkbox Premium (Pill Chips) */
+        /* Kustom Grid Checkbox (Pill Chips) Responsive */
         .checkbox-container {
             display: grid;
-            grid-template-columns: repeat(2, 1fr);
+            grid-template-columns: repeat(auto-fit, minmax(140px, 1fr));
             gap: 10px;
             max-height: 240px;
             overflow-y: auto;
@@ -364,7 +421,7 @@
             align-items: center;
             gap: 8px;
             font-size: 13px;
-            color: #475569;
+            color: var(--text-muted);
             font-weight: 600;
             background: var(--bg-input);
             border: 1px solid var(--border);
@@ -393,21 +450,20 @@
         .bottom-nav {
             position: fixed;
             bottom: 0;
-            left: 50%;
-            transform: translateX(-50%);
+            left: 0;
             width: 100%;
-            max-width: 480px;
             height: 80px;
-            background: rgba(255, 255, 255, 0.85);
+            background: var(--header-bg);
             backdrop-filter: blur(20px);
             -webkit-backdrop-filter: blur(20px);
-            border-top: 1px solid rgba(226, 232, 240, 0.8);
+            border-top: 1px solid var(--border);
             display: flex;
             justify-content: space-around;
             align-items: center;
             z-index: 100;
             padding-bottom: 14px;
             box-sizing: border-box;
+            transition: background-color 0.3s ease, border-color 0.3s ease;
         }
 
         .nav-item {
@@ -450,7 +506,7 @@
         .empty-state svg {
             width: 48px;
             height: 48px;
-            stroke: #cbd5e1;
+            stroke: var(--text-muted);
             margin-bottom: 16px;
         }
         
@@ -458,6 +514,25 @@
             display: none;
             margin-top: 14px;
             animation: fadeIn 0.3s ease-out;
+        }
+
+        /* Media Query untuk Layar Kecil */
+        @media (max-width: 380px) {
+            .flex-group {
+                flex-direction: column;
+                gap: 0;
+            }
+            .checkbox-container {
+                grid-template-columns: 1fr;
+            }
+            .vehicle-hero {
+                flex-direction: column;
+                align-items: flex-start;
+                gap: 8px;
+            }
+            .v-total-cost {
+                text-align: left;
+            }
         }
     </style>
 </head>
@@ -469,21 +544,30 @@
             <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" style="width: 24px; height: 24px; stroke: var(--primary);"><path d="M19 17h2c.6 0 1-.4 1-1v-3c0-.9-.7-1.7-1.5-1.9C18.7 10.6 16 10 16 10s-1.3-1.4-2.2-2.3c-.5-.4-1.1-.7-1.8-.7H5c-.6 0-1.1.4-1.4.9l-1.4 2.9A3.7 3.7 0 0 0 2 12v4c0 .6.4 1 1 1h2"/><circle cx="7" cy="17" r="2"/><path d="M9 17h6"/><circle cx="17" cy="17" r="2"/></svg>
             Garasi<span>Ku</span> Pro
         </h1>
-    </header>
+        
+        <!-- Grup Aksi Header (Impor, Ekspor, Tema Sakelar) -->
+        <div class="header-actions">
+            <!-- Ikon Impor Data -->
+            <div class="icon-file-wrapper" title="Impor Data">
+                <button type="button" class="icon-btn" aria-label="Impor Data">
+                    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" d="M3 16.5v2.25A2.25 2.25 0 0 0 5.25 21h13.5A2.25 2.25 0 0 0 21 18.75V16.5M16.5 12 12 16.5m0 0L7.5 12m4.5 4.5V3" /></svg>
+                </button>
+                <input type="file" id="importFile" accept=".json">
+            </div>
 
-    <div class="cloud-zone">
-        <div class="file-wrapper">
-            <button class="btn-cloud">
-                <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" d="M3 16.5v2.25A2.25 2.25 0 0 0 5.25 21h13.5A2.25 2.25 0 0 0 21 18.75V16.5M16.5 12 12 16.5m0 0L7.5 12m4.5 4.5V3" /></svg>
-                Impor Data
+            <!-- Ikon Ekspor Data -->
+            <button type="button" class="icon-btn" id="exportBtn" title="Ekspor Data" aria-label="Ekspor Data">
+                <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" d="M3 16.5v2.25A2.25 2.25 0 0 0 5.25 21h13.5A2.25 2.25 0 0 0 21 18.75V16.5m-13.5-9L12 3m0 0 4.5 4.5M12 3v13.5" /></svg>
             </button>
-            <input type="file" id="importFile" accept=".json">
+
+            <!-- Tombol Sakelar Mode Terang / Gelap -->
+            <button id="themeToggleBtn" class="icon-btn" title="Ubah Tema" aria-label="Beralih Tema">
+                <svg id="themeIcon" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                    <path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"></path>
+                </svg>
+            </button>
         </div>
-        <button type="button" class="btn-cloud" id="exportBtn">
-            <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" d="M3 16.5v2.25A2.25 2.25 0 0 0 5.25 21h13.5A2.25 2.25 0 0 0 21 18.75V16.5m-13.5-9L12 3m0 0 4.5 4.5M12 3v13.5" /></svg>
-            Ekspor Data
-        </button>
-    </div>
+    </header>
 
     <div id="tabDashboard" class="tab-content active">
         <div id="historyContainer"></div>
@@ -582,6 +666,40 @@
 </div>
 
 <script>
+    /* Management Mode Dark/Light */
+    const themeToggleBtn = document.getElementById('themeToggleBtn');
+    const themeIcon = document.getElementById('themeIcon');
+    
+    const moonIconPath = '<path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"></path>';
+    const sunIconPath = '<circle cx="12" cy="12" r="5"></circle><line x1="12" y1="1" x2="12" y2="3"></line><line x1="12" y1="21" x2="12" y2="23"></line><line x1="4.22" y1="4.22" x2="5.64" y2="5.64"></line><line x1="18.36" y1="18.36" x2="19.78" y2="19.78"></line><line x1="1" y1="12" x2="3" y2="12"></line><line x1="21" y1="12" x2="23" y2="12"></line><line x1="4.22" y1="19.78" x2="5.64" y2="18.36"></line><line x1="18.36" y1="5.64" x2="19.78" y2="4.22"></line>';
+
+    function aturTema(isDark) {
+        if (isDark) {
+            document.documentElement.setAttribute('data-theme', 'dark');
+            themeIcon.innerHTML = sunIconPath;
+            localStorage.setItem('garasi_theme', 'dark');
+        } else {
+            document.documentElement.removeAttribute('data-theme');
+            themeIcon.innerHTML = moonIconPath;
+            localStorage.setItem('garasi_theme', 'light');
+        }
+    }
+
+    const savedTheme = localStorage.getItem('garasi_theme');
+    const prefersDark = window.matchMedia('(prefers-color-scheme: dark)').matches;
+
+    if (savedTheme === 'dark' || (!savedTheme && prefersDark)) {
+        aturTema(true);
+    } else {
+        aturTema(false);
+    }
+
+    themeToggleBtn.addEventListener('click', () => {
+        const isCurrentDark = document.documentElement.getAttribute('data-theme') === 'dark';
+        aturTema(!isCurrentDark);
+    });
+
+    /* Logika Form dan Garasi */
     function setHariIni() {
         document.getElementById('date').value = new Date().toISOString().substring(0, 10);
     }
@@ -707,17 +825,18 @@
         historyContainer.innerHTML = '';
 
         for (const key in grupKendaraan) {
-            const [namaKendaraan, platNomor, jenisKendaraan] = key.split('|||');
+            const [namaKendaraan, platNomor] = key.split('|||');
             grupKendaraan[key].sort((a, b) => new Date(b.date) - new Date(a.date));
             
             const totalBiaya = grupKendaraan[key].reduce((sum, item) => sum + Number(item.cost), 0);
             const formatTotalRupiah = new Intl.NumberFormat('id-ID', { style: 'currency', currency: 'IDR', minimumFractionDigits: 0 }).format(totalBiaya);
 
+            /* Header identitas kendaraan dalam 1 baris yang mudah dibaca */
             let cardHtml = `
                 <div class="vehicle-card">
                     <div class="vehicle-hero">
-                        <div class="v-meta">
-                            <h3>${namaKendaraan}</h3>
+                        <div class="v-info-group">
+                            <h3 class="v-meta-title">${namaKendaraan}</h3>
                             <span class="v-badge">${platNomor}</span>
                         </div>
                         <div class="v-total-cost">
