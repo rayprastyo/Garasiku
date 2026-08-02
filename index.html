@@ -1,0 +1,895 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <title>GarasiKu Premium Pro</title>
+    <style>
+        :root {
+            /* Palet Warna Premium Pro (Ultra Modern Slate & Pure Indigo) */
+            --bg-main: #f8fafc;
+            --bg-container: #ffffff;
+            --bg-card: #f1f5f9;
+            --bg-input: #f8fafc;
+            --primary: #4f46e5;      
+            --primary-glow: rgba(79, 70, 229, 0.1);
+            --success: #059669;      
+            --success-glow: rgba(5, 150, 105, 0.1);
+            --text-main: #0f172a;    
+            --text-muted: #64748b;   
+            --border: #e2e8f0;
+            --accent: #6366f1;
+            --shadow-sm: 0 2px 8px rgba(15, 23, 42, 0.04);
+            --shadow-md: 0 12px 34px rgba(15, 23, 42, 0.06);
+        }
+
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, "SF Pro Text", "SF Pro Display", "Segoe UI", Roboto, sans-serif;
+            background-color: var(--bg-main);
+            color: var(--text-main);
+            margin: 0;
+            padding: 0;
+            display: flex;
+            justify-content: center;
+            min-height: 100vh;
+            overflow-x: hidden;
+            -webkit-font-smoothing: antialiased;
+        }
+
+        /* Simulator Layar Mobile Premium */
+        .app-container {
+            width: 100%;
+            max-width: 480px;
+            background: var(--bg-container);
+            min-height: 100vh;
+            padding-bottom: 100px;
+            box-sizing: border-box;
+            position: relative;
+            box-shadow: 0 0 50px rgba(0,0,0,0.03);
+        }
+
+        /* Header Frosted Glass */
+        header {
+            padding: 20px 24px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            position: sticky;
+            top: 0;
+            backdrop-filter: blur(20px);
+            -webkit-backdrop-filter: blur(20px);
+            background: rgba(255, 255, 255, 0.85);
+            z-index: 10;
+            border-bottom: 1px solid rgba(226, 232, 240, 0.8);
+        }
+
+        header h1 {
+            font-size: 24px;
+            font-weight: 800;
+            margin: 0;
+            letter-spacing: -0.8px;
+            color: var(--text-main);
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        header h1 span {
+            font-weight: 400;
+            color: var(--text-muted);
+        }
+
+        /* Aksi Sinkronisasi Data */
+        .cloud-zone {
+            display: flex;
+            gap: 12px;
+            padding: 16px 24px;
+            background: #ffffff;
+        }
+
+        .btn-cloud {
+            flex: 1;
+            background: var(--bg-input);
+            border: 1px solid var(--border);
+            color: var(--text-main);
+            padding: 12px;
+            border-radius: 16px;
+            font-size: 13px;
+            font-weight: 600;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 8px;
+            transition: all 0.2s ease;
+        }
+
+        .btn-cloud:hover {
+            background: #edf2f7;
+            border-color: #cbd5e1;
+        }
+
+        .btn-cloud svg {
+            width: 16px;
+            height: 16px;
+            stroke: var(--text-muted);
+        }
+
+        .file-wrapper {
+            position: relative;
+            flex: 1;
+        }
+
+        .file-wrapper input[type="file"] {
+            position: absolute;
+            left: 0; top: 0; opacity: 0; width: 100%; height: 100%; cursor: pointer;
+        }
+
+        /* Konten Halaman */
+        .tab-content {
+            padding: 8px 24px 24px 24px;
+            display: none;
+            animation: cubic-bezier(0.4, 0, 0.2, 1) fadeIn 0.4s forwards;
+        }
+
+        .tab-content.active {
+            display: block;
+        }
+
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(10px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        /* Form Premium Container */
+        .card-modern {
+            background: #ffffff;
+            border-radius: 28px;
+            margin-bottom: 20px;
+        }
+
+        .form-group {
+            margin-bottom: 22px;
+        }
+
+        label {
+            display: block;
+            font-size: 12px;
+            color: var(--text-muted);
+            margin-bottom: 8px;
+            letter-spacing: 0.3px;
+            font-weight: 600;
+        }
+
+        input, textarea, select {
+            width: 100%;
+            padding: 16px;
+            background: var(--bg-input);
+            border: 1px solid var(--border);
+            border-radius: 16px;
+            color: var(--text-main);
+            font-size: 15px;
+            box-sizing: border-box;
+            transition: all 0.2s ease;
+            font-weight: 500;
+        }
+
+        input:focus, textarea:focus, select:focus {
+            outline: none;
+            border-color: var(--primary);
+            box-shadow: 0 0 0 4px var(--primary-glow);
+            background: #ffffff;
+        }
+
+        input[readonly] {
+            opacity: 0.6;
+            background: #e2e8f0;
+            cursor: not-allowed;
+        }
+
+        .flex-group {
+            display: flex;
+            gap: 14px;
+        }
+
+        .flex-item {
+            flex: 1;
+        }
+
+        /* Tombol Aksi Utama */
+        .btn-primary {
+            background: linear-gradient(135deg, var(--primary) 0%, #312e81 100%);
+            box-shadow: 0 8px 24px rgba(79, 70, 229, 0.25);
+            color: #ffffff;
+            border: none;
+            padding: 18px;
+            border-radius: 18px;
+            font-size: 16px;
+            font-weight: 700;
+            cursor: pointer;
+            width: 100%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 10px;
+            transition: all 0.2s ease;
+        }
+
+        .btn-primary:active {
+            transform: scale(0.97);
+            filter: brightness(0.9);
+        }
+
+        /* Kartu Ringkasan Finansial & Kendaraan */
+        .vehicle-card {
+            background: #ffffff;
+            border: 1px solid var(--border);
+            border-radius: 28px;
+            margin-bottom: 24px;
+            overflow: hidden;
+            box-shadow: var(--shadow-sm);
+        }
+
+        .vehicle-hero {
+            padding: 20px 24px;
+            background: linear-gradient(135deg, #0f172a 0%, #1e293b 100%);
+            color: #ffffff;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .v-meta h3 {
+            margin: 0;
+            font-size: 18px;
+            font-weight: 800;
+            letter-spacing: -0.4px;
+        }
+
+        .v-badge {
+            background: rgba(255, 255, 255, 0.15);
+            backdrop-filter: blur(5px);
+            color: #ffffff;
+            padding: 6px 12px;
+            border-radius: 10px;
+            font-size: 12px;
+            font-weight: 700;
+            display: inline-block;
+            margin-top: 8px;
+            letter-spacing: 0.5px;
+            border: 1px solid rgba(255,255,255,0.1);
+        }
+
+        .v-total-cost {
+            text-align: right;
+        }
+
+        .v-total-cost div {
+            font-size: 11px;
+            color: #94a3b8;
+            font-weight: 600;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+        }
+
+        .v-total-cost font {
+            font-size: 18px;
+            font-weight: 800;
+            color: #34d399;
+        }
+
+        /* Daftar Riwayat Servis (Timeline) */
+        .history-list {
+            padding: 8px 24px;
+        }
+
+        .history-node {
+            padding: 18px 0;
+            border-bottom: 1px solid #f1f5f9;
+        }
+
+        .history-node:last-child {
+            border-bottom: none;
+        }
+
+        .node-top {
+            display: flex;
+            justify-content: space-between;
+            align-items: flex-start;
+            font-weight: 700;
+            font-size: 15px;
+        }
+
+        .node-top span:first-child {
+            max-width: 70%;
+            line-content: 1.4;
+        }
+
+        .node-sub {
+            font-size: 12px;
+            color: var(--text-muted);
+            margin: 6px 0;
+            display: flex;
+            gap: 12px;
+        }
+
+        .node-notes {
+            font-size: 13px;
+            background: var(--bg-input);
+            padding: 10px 14px;
+            border-radius: 12px;
+            margin-top: 8px;
+            color: #334155;
+            display: block;
+            border: 1px solid var(--border);
+        }
+
+        .node-actions {
+            display: flex;
+            gap: 16px;
+            margin-top: 12px;
+        }
+
+        .action-link {
+            font-size: 13px;
+            font-weight: 700;
+            cursor: pointer;
+            background: none;
+            border: none;
+            padding: 0;
+            display: flex;
+            align-items: center;
+            gap: 4px;
+        }
+        
+        .action-link svg {
+            width: 14px;
+            height: 14px;
+        }
+        .action-edit { color: #d97706; }
+        .action-delete { color: #e11d48; }
+
+        /* Kustom Grid Checkbox Premium (Pill Chips) */
+        .checkbox-container {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 10px;
+            max-height: 240px;
+            overflow-y: auto;
+            padding: 4px 2px;
+        }
+
+        .checkbox-label {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            font-size: 13px;
+            color: #475569;
+            font-weight: 600;
+            background: var(--bg-input);
+            border: 1px solid var(--border);
+            padding: 12px;
+            border-radius: 14px;
+            cursor: pointer;
+            user-select: none;
+            transition: all 0.2s ease;
+        }
+
+        .checkbox-label:has(input:checked) {
+            background: var(--primary-glow);
+            border-color: var(--primary);
+            color: var(--primary);
+        }
+
+        .checkbox-label input[type="checkbox"] {
+            width: 16px;
+            height: 16px;
+            accent-color: var(--primary);
+            margin: 0;
+            cursor: pointer;
+        }
+
+        /* Navigasi Bawah Pro Glassmorphism */
+        .bottom-nav {
+            position: fixed;
+            bottom: 0;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 100%;
+            max-width: 480px;
+            height: 80px;
+            background: rgba(255, 255, 255, 0.85);
+            backdrop-filter: blur(20px);
+            -webkit-backdrop-filter: blur(20px);
+            border-top: 1px solid rgba(226, 232, 240, 0.8);
+            display: flex;
+            justify-content: space-around;
+            align-items: center;
+            z-index: 100;
+            padding-bottom: 14px;
+            box-sizing: border-box;
+        }
+
+        .nav-item {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            color: var(--text-muted);
+            cursor: pointer;
+            font-size: 12px;
+            font-weight: 700;
+            background: none;
+            border: none;
+            gap: 4px;
+            transition: all 0.2s ease;
+        }
+
+        .nav-item.active {
+            color: var(--primary);
+        }
+
+        .nav-icon svg {
+            width: 22px;
+            height: 22px;
+            stroke: var(--text-muted);
+            transition: all 0.2s ease;
+            fill: none;
+        }
+
+        .nav-item.active .nav-icon svg {
+            stroke: var(--primary);
+            transform: translateY(-1px);
+        }
+
+        .empty-state {
+            text-align: center;
+            padding: 80px 24px;
+            color: var(--text-muted);
+        }
+
+        .empty-state svg {
+            width: 48px;
+            height: 48px;
+            stroke: #cbd5e1;
+            margin-bottom: 16px;
+        }
+        
+        .new-plate-container {
+            display: none;
+            margin-top: 14px;
+            animation: fadeIn 0.3s ease-out;
+        }
+    </style>
+</head>
+<body>
+
+<div class="app-container">
+    <header>
+        <h1>
+            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" style="width: 24px; height: 24px; stroke: var(--primary);"><path d="M19 17h2c.6 0 1-.4 1-1v-3c0-.9-.7-1.7-1.5-1.9C18.7 10.6 16 10 16 10s-1.3-1.4-2.2-2.3c-.5-.4-1.1-.7-1.8-.7H5c-.6 0-1.1.4-1.4.9l-1.4 2.9A3.7 3.7 0 0 0 2 12v4c0 .6.4 1 1 1h2"/><circle cx="7" cy="17" r="2"/><path d="M9 17h6"/><circle cx="17" cy="17" r="2"/></svg>
+            Garasi<span>Ku</span> Pro
+        </h1>
+    </header>
+
+    <div class="cloud-zone">
+        <div class="file-wrapper">
+            <button class="btn-cloud">
+                <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" d="M3 16.5v2.25A2.25 2.25 0 0 0 5.25 21h13.5A2.25 2.25 0 0 0 21 18.75V16.5M16.5 12 12 16.5m0 0L7.5 12m4.5 4.5V3" /></svg>
+                Impor Data
+            </button>
+            <input type="file" id="importFile" accept=".json">
+        </div>
+        <button type="button" class="btn-cloud" id="exportBtn">
+            <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" d="M3 16.5v2.25A2.25 2.25 0 0 0 5.25 21h13.5A2.25 2.25 0 0 0 21 18.75V16.5m-13.5-9L12 3m0 0 4.5 4.5M12 3v13.5" /></svg>
+            Ekspor Data
+        </button>
+    </div>
+
+    <div id="tabDashboard" class="tab-content active">
+        <div id="historyContainer"></div>
+    </div>
+
+    <div id="tabForm" class="tab-content">
+        <div class="card-modern">
+            <form id="serviceForm">
+                <input type="hidden" id="editId" value="">
+
+                <div class="form-group">
+                    <label for="plateSelect">Identitas Kendaraan</label>
+                    <select id="plateSelect" required></select>
+                    
+                    <div id="newPlateContainer" class="new-plate-container">
+                        <label for="newPlateNumber">Ketik Plat Nomor Baru</label>
+                        <input type="text" id="newPlateNumber" style="text-transform: uppercase;" placeholder="B 1234 ABC">
+                    </div>
+                </div>
+
+                <div class="flex-group">
+                    <div class="form-group flex-item" style="flex: 1.4;">
+                        <label for="vehicle">Nama Kendaraan</label>
+                        <input type="text" id="vehicle" style="text-transform: uppercase;" placeholder="Vario 160" required>
+                    </div>
+                    <div class="form-group flex-item">
+                        <label for="vehicleType">Jenis</label>
+                        <select id="vehicleType" required>
+                            <option value="🏍️ Motor">Motor</option>
+                            <option value="🚗 Mobil">Mobil</option>
+                            <option value="🚚 Lainnya">Lainnya</option>
+                        </select>
+                    </div>
+                </div>
+
+                <div class="flex-group">
+                    <div class="form-group flex-item">
+                        <label for="date">Tanggal Servis</label>
+                        <input type="date" id="date" required>
+                    </div>
+                    <div class="form-group flex-item">
+                        <label for="odometer">Odometer (KM)</label>
+                        <input type="number" id="odometer" placeholder="12500" required>
+                    </div>
+                </div>
+                
+                <div class="form-group">
+                    <label>Tindakan Perawatan (Pilih Item)</label>
+                    <div class="checkbox-container">
+                        <label class="checkbox-label"><input type="checkbox" name="serviceItems" value="Saringan Udara"> Saringan Udara</label>
+                        <label class="checkbox-label"><input type="checkbox" name="serviceItems" value="Busi"> Busi</label>
+                        <label class="checkbox-label"><input type="checkbox" name="serviceItems" value="Oli Mesin"> Oli Mesin</label>
+                        <label class="checkbox-label"><input type="checkbox" name="serviceItems" value="Cairan Pendingin Radiator"> Cairan Radiator</label>
+                        <label class="checkbox-label"><input type="checkbox" name="serviceItems" value="Drive Belt"> Drive Belt</label>
+                        <label class="checkbox-label"><input type="checkbox" name="serviceItems" value="Oli Final Drive"> Oli Final Drive</label>
+                        <label class="checkbox-label"><input type="checkbox" name="serviceItems" value="Minyak Rem"> Minyak Rem</label>
+                        <label class="checkbox-label"><input type="checkbox" name="serviceItems" value="Baterai"> Baterai / Aki</label>
+                        <label class="checkbox-label"><input type="checkbox" name="serviceItems" value="Kampas Rem"> Kampas Rem</label>
+                        <label class="checkbox-label"><input type="checkbox" name="serviceItems" value="Lampu"> Kelistrikan / Lampu</label>
+                        <label class="checkbox-label"><input type="checkbox" name="serviceItems" value="Ban"> Kondisi Ban</label>
+                    </div>
+                </div>
+                
+                <div class="form-group">
+                    <label for="cost">Rincian Total Biaya (Rp)</label>
+                    <input type="number" id="cost" placeholder="145000" required>
+                </div>
+                
+                <div class="form-group">
+                    <label for="notes">Catatan Tambahan (Opsional)</label>
+                    <textarea id="notes" rows="2" placeholder="Tulis catatan sparepart atau merek oli di sini..."></textarea>
+                </div>
+                
+                <button type="submit" id="submitBtn" class="btn-primary">
+                    <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="2.5" stroke="currentColor" style="width: 18px; height: 18px;"><path stroke-linecap="round" stroke-linejoin="round" d="M4.5 12.75l6 6 9-13.5" /></svg>
+                    Simpan Log Aktivitas
+                </button>
+            </form>
+        </div>
+    </div>
+
+    <nav class="bottom-nav">
+        <button class="nav-item active" onclick="switchTab('dashboard', this)">
+            <span class="nav-icon">
+                <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" d="M3.75 6A2.25 2.25 0 0 1 6 3.75h2.25A2.25 2.25 0 0 1 10.5 6v2.25a2.25 2.25 0 0 1-2.25 2.25H6a2.25 2.25 0 0 1-2.25-2.25V6ZM3.75 15.75A2.25 2.25 0 0 1 6 13.5h2.25a2.25 2.25 0 0 1 2.25 2.25V18a2.25 2.25 0 0 1-2.25 2.25H6A2.25 2.25 0 0 1 3.75 18v-2.25ZM13.5 6a2.25 2.25 0 0 1 2.25-2.25H18A2.25 2.25 0 0 1 20.25 6v2.25A2.25 2.25 0 0 1 18 10.5h-2.25a2.25 2.25 0 0 1-2.25-2.25V6ZM13.5 15.75a2.25 2.25 0 0 1 2.25-2.25H18a2.25 2.25 0 0 1 2.25 2.25V18A2.25 2.25 0 0 1 18 20.25h-2.25A2.25 2.25 0 0 1 13.5 18v-2.25Z" /></svg>
+            </span>
+            <span>Aktivitas</span>
+        </button>
+        <button class="nav-item" id="navFormBtn" onclick="switchTab('form', this)">
+            <span class="nav-icon">
+                <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" d="M12 4.5v15m7.5-7.5h-15" /></svg>
+            </span>
+            <span>Tambah Log</span>
+        </button>
+    </nav>
+</div>
+
+<script>
+    function setHariIni() {
+        document.getElementById('date').value = new Date().toISOString().substring(0, 10);
+    }
+    setHariIni();
+
+    const serviceForm = document.getElementById('serviceForm');
+    const historyContainer = document.getElementById('historyContainer');
+    const submitBtn = document.getElementById('submitBtn');
+    const editIdInput = document.getElementById('editId');
+    const exportBtn = document.getElementById('exportBtn');
+    const importFile = document.getElementById('importFile');
+    
+    const plateSelect = document.getElementById('plateSelect');
+    const newPlateContainer = document.getElementById('newPlateContainer');
+    const newPlateNumber = document.getElementById('newPlateNumber');
+    const vehicleInput = document.getElementById('vehicle');
+    const typeInput = document.getElementById('vehicleType');
+
+    let dataServis = JSON.parse(localStorage.getItem('dataServis_v2')) || [];
+
+    function simpanKeBrowser() {
+        localStorage.setItem('dataServis_v2', JSON.stringify(dataServis));
+    }
+
+    function perbaruiDropdownPlat() {
+        const mapKendaraan = new Map();
+        dataServis.forEach(item => {
+            if(item.plateNumber) {
+                mapKendaraan.set(item.plateNumber.toUpperCase(), {
+                    vehicle: item.vehicle,
+                    type: item.vehicleType
+                });
+            }
+        });
+
+        plateSelect.innerHTML = '';
+        
+        if(mapKendaraan.size > 0) {
+            mapKendaraan.forEach((info, plat) => {
+                const opt = document.createElement('option');
+                opt.value = plat;
+                opt.textContent = `${plat} — ${info.vehicle}`;
+                opt.dataset.vehicle = info.vehicle;
+                opt.dataset.type = info.type;
+                plateSelect.appendChild(opt);
+            });
+
+            const optNew = document.createElement('option');
+            optNew.value = "BARU";
+            optNew.textContent = "[ + Daftarkan Kendaraan Baru ]";
+            plateSelect.appendChild(optNew);
+        } else {
+            const optEmpty = document.createElement('option');
+            optEmpty.value = "BARU";
+            optEmpty.textContent = "Belum Ada Kendaraan (Buat Baru)";
+            plateSelect.appendChild(optEmpty);
+        }
+
+        pemicuPerubahanPlat();
+    }
+
+    function pemicuPerubahanPlat() {
+        if(plateSelect.value === "BARU") {
+            newPlateContainer.style.display = 'block';
+            newPlateNumber.setAttribute('required', 'true');
+            if(editIdInput.value === "") {
+                vehicleInput.value = '';
+                vehicleInput.removeAttribute('readonly');
+                typeInput.style.pointerEvents = 'auto';
+            }
+        } else {
+            newPlateContainer.style.display = 'none';
+            newPlateNumber.removeAttribute('required');
+            
+            const opsiTerpilih = plateSelect.options[plateSelect.selectedIndex];
+            vehicleInput.value = opsiTerpilih.dataset.vehicle || '';
+            typeInput.value = opsiTerpilih.dataset.type || '🏍️ Motor';
+            
+            vehicleInput.setAttribute('readonly', 'true');
+            typeInput.style.pointerEvents = 'none';
+        }
+    }
+
+    plateSelect.addEventListener('change', pemicuPerubahanPlat);
+
+    function switchTab(tabName, element) {
+        document.querySelectorAll('.tab-content').forEach(tab => tab.classList.remove('active'));
+        document.querySelectorAll('.nav-item').forEach(item => item.classList.remove('active'));
+        
+        if(tabName === 'dashboard') {
+            document.getElementById('tabDashboard').classList.add('active');
+        } else if(tabName === 'form') {
+            document.getElementById('tabForm').classList.add('active');
+            if(editIdInput.value === "") {
+                perbaruiDropdownPlat();
+            }
+        }
+        if(element) element.classList.add('active');
+    }
+
+    function tampilkanRiwayat() {
+        perbaruiDropdownPlat();
+
+        if (dataServis.length === 0) {
+            historyContainer.innerHTML = `
+                <div class="empty-state">
+                    <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" d="M2.25 13.5h3.86a2.25 2.25 0 0 1 2.008 1.24l.885 1.77a2.25 2.25 0 0 0 2.007 1.24h1.98a2.25 2.25 0 0 0 2.007-1.24l.885-1.77a2.25 2.25 0 0 1 2.007-1.24h3.86m-18 0h18a2.25 2.25 0 0 1 2.25 2.25v4.25A2.25 2.25 0 0 1 18.75 21H5.25A2.25 2.25 0 0 1 3 18.75V15.75A2.25 2.25 0 0 1 2.25 13.5ZM2.25 13.5V6a2.25 2.25 0 0 1 2.25-2.25h15A2.25 2.25 0 0 1 21.75 6v7.5m-10.5-6h.008v.008H11.25V7.5Zm.008 3h.008v.008H11.25v-.008Zm3-3h.008v.008h-.008V7.5Zm.008 3h.008v.008h-.008v-.008Z" /></svg>
+                    <h3 style="margin: 0; font-size: 16px; font-weight:700;">Garasi Anda Masih Kosong</h3>
+                    <p style="font-size:13px; max-width:280px; margin:8px auto 0 auto; line-height:1.5;">Catatan riwayat perawatan kendaraan bermotor Anda akan terorganisir di sini secara rapi.</p>
+                </div>`;
+            return;
+        }
+
+        let dataDenganId = dataServis.map((item, index) => ({ ...item, originalIndex: index }));
+        const grupKendaraan = {};
+        
+        dataDenganId.forEach(item => {
+            const key = `${item.vehicle.toUpperCase()}|||${item.plateNumber.toUpperCase()}|||${item.vehicleType}`;
+            if (!grupKendaraan[key]) grupKendaraan[key] = [];
+            grupKendaraan[key].push(item);
+        });
+
+        historyContainer.innerHTML = '';
+
+        for (const key in grupKendaraan) {
+            const [namaKendaraan, platNomor, jenisKendaraan] = key.split('|||');
+            grupKendaraan[key].sort((a, b) => new Date(b.date) - new Date(a.date));
+            
+            const totalBiaya = grupKendaraan[key].reduce((sum, item) => sum + Number(item.cost), 0);
+            const formatTotalRupiah = new Intl.NumberFormat('id-ID', { style: 'currency', currency: 'IDR', minimumFractionDigits: 0 }).format(totalBiaya);
+
+            let cardHtml = `
+                <div class="vehicle-card">
+                    <div class="vehicle-hero">
+                        <div class="v-meta">
+                            <h3>${namaKendaraan}</h3>
+                            <span class="v-badge">${platNomor}</span>
+                        </div>
+                        <div class="v-total-cost">
+                            <div>Total Biaya</div>
+                            <font>${formatTotalRupiah}</font>
+                        </div>
+                    </div>
+                    <div class="history-list">
+            `;
+
+            grupKendaraan[key].forEach((item) => {
+                const formatRupiah = new Intl.NumberFormat('id-ID', { style: 'currency', currency: 'IDR', minimumFractionDigits: 0 }).format(item.cost);
+                const formatTanggal = new Date(item.date).toLocaleDateString('id-ID', { day: 'numeric', month: 'short', year: 'numeric' });
+
+                cardHtml += `
+                    <div class="history-node">
+                        <div class="node-top">
+                            <span>${item.serviceType}</span>
+                            <span style="color: var(--primary);">${formatRupiah}</span>
+                        </div>
+                        <div class="node-sub">
+                            <span>📅 ${formatTanggal}</span>
+                            <span>⏱️ ${Number(item.odometer).toLocaleString('id-ID')} KM</span>
+                        </div>
+                        ${item.notes ? `<div class="node-notes">${item.notes}</div>` : ''}
+                        <div class="node-actions">
+                            <button class="action-link action-edit" onclick="aktifkanModeEdit(${item.originalIndex})">
+                                <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" d="m16.862 4.487 1.687-1.688a1.875 1.875 0 1 1 2.652 2.652L10.582 16.07a4.5 4.5 0 0 1-1.897 1.13L6 18l.8-2.685a4.5 4.5 0 0 1 1.13-1.897l8.932-8.931Zm0 0L19.5 7.125M18 14v4.75A2.25 2.25 0 0 1 15.75 21H5.25A2.25 2.25 0 0 1 3 18.75V8.25A2.25 2.25 0 0 1 5.25 6H10" /></svg>
+                                Ubah
+                            </button>
+                            <button class="action-link action-delete" onclick="hapusCatatan(${item.originalIndex})">
+                                <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" d="m14.74 9-.346 9m-4.788 0L9.26 9m9.968-3.21c.342.052.682.107 1.022.166m-1.022-.165L18.16 19.673a2.25 2.25 0 0 1-2.244 2.077H8.084a2.25 2.25 0 0 1-2.244-2.077L4.772 5.79m14.456 0a48.108 48.108 0 0 0-3.478-.397m-12 .562c.34-.059.68-.114 1.022-.165m0 0a48.11 48.11 0 0 1 3.478-.397m7.5 0v-.916c0-1.18-.91-2.164-2.09-2.201a51.964 51.964 0 0 0-3.32 0c-1.18.037-2.09 1.022-2.09 2.201v.916m7.5 0a48.667 48.667 0 0 0-7.5 0" /></svg>
+                                Hapus
+                            </button>
+                        </div>
+                    </div>
+                `;
+            });
+
+            cardHtml += `</div></div>`;
+            historyContainer.innerHTML += cardHtml;
+        }
+    }
+
+    exportBtn.addEventListener('click', function() {
+        if (dataServis.length === 0) { return alert("Tidak ada data untuk disalin!"); }
+        const dataStr = "data:text/json;charset=utf-8," + encodeURIComponent(JSON.stringify(dataServis, null, 2));
+        const downloadAnchor = document.createElement('a');
+        downloadAnchor.setAttribute("href", dataStr);
+        downloadAnchor.setAttribute("download", `garasiku_pro_backup.json`);
+        document.body.appendChild(downloadAnchor);
+        downloadAnchor.click();
+        downloadAnchor.remove();
+    });
+
+    importFile.addEventListener('change', function(e) {
+        const file = e.target.files[0];
+        if (!file) return;
+        const reader = new FileReader();
+        reader.onload = function(evt) {
+            try {
+                const parsedData = JSON.parse(evt.target.result);
+                if (Array.isArray(parsedData)) {
+                    dataServis = parsedData;
+                    simpanKeBrowser();
+                    tampilkanRiwayat();
+                    alert("Sinkronisasi berkas garasi berhasil!");
+                }
+            } catch (e) { alert("Format berkas cadangan JSON tidak valid."); }
+        };
+        reader.readAsText(file);
+        importFile.value = '';
+    });
+
+    serviceForm.addEventListener('submit', function(e) {
+        e.preventDefault();
+        
+        let platFinal = "";
+        if (plateSelect.value === "BARU") {
+            platFinal = newPlateNumber.value.toUpperCase().trim();
+        } else {
+            platFinal = plateSelect.value;
+        }
+
+        const checkedBoxes = document.querySelectorAll('input[name="serviceItems"]:checked');
+        if (checkedBoxes.length === 0) {
+            alert("Pilih minimal satu item tindakan perawatan kendaraan!");
+            return;
+        }
+        const serviceTypeArray = [];
+        checkedBoxes.forEach(cb => serviceTypeArray.push(cb.value));
+        const serviceTypeFinal = serviceTypeArray.join(', ');
+
+        const idx = editIdInput.value;
+        const itemData = {
+            vehicle: vehicleInput.value.toUpperCase().trim(),
+            plateNumber: platFinal,
+            vehicleType: typeInput.value,
+            date: document.getElementById('date').value,
+            odometer: document.getElementById('odometer').value,
+            serviceType: serviceTypeFinal,
+            cost: document.getElementById('cost').value,
+            notes: document.getElementById('notes').value
+        };
+
+        if (idx === "") {
+            dataServis.push(itemData);
+        } else {
+            dataServis[parseInt(idx)] = itemData;
+            submitBtn.innerHTML = `<svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="2.5" stroke="currentColor" style="width: 18px; height: 18px;"><path stroke-linecap="round" stroke-linejoin="round" d="M4.5 12.75l6 6 9-13.5" /></svg> Simpan Log Aktivitas`;
+            editIdInput.value = "";
+            vehicleInput.removeAttribute('readonly');
+            typeInput.style.pointerEvents = 'auto';
+        }
+
+        simpanKeBrowser();
+        tampilkanRiwayat();
+        serviceForm.reset();
+        
+        document.querySelectorAll('input[name="serviceItems"]').forEach(cb => cb.checked = false);
+        
+        newPlateNumber.value = '';
+        setHariIni();
+        
+        switchTab('dashboard', document.querySelector('.nav-item'));
+    });
+
+    function aktifkanModeEdit(originalIndex) {
+        const item = dataServis[originalIndex];
+        editIdInput.value = originalIndex;
+        
+        plateSelect.innerHTML = `<option value="${item.plateNumber}">${item.plateNumber}</option>`;
+        newPlateContainer.style.display = 'none';
+        newPlateNumber.removeAttribute('required');
+
+        vehicleInput.value = item.vehicle;
+        typeInput.value = item.vehicleType;
+        
+        vehicleInput.removeAttribute('readonly');
+        typeInput.style.pointerEvents = 'auto';
+
+        document.getElementById('date').value = item.date;
+        document.getElementById('odometer').value = item.odometer;
+        
+        const checkboxes = document.querySelectorAll('input[name="serviceItems"]');
+        checkboxes.forEach(cb => cb.checked = false);
+        
+        if (item.serviceType) {
+            const itemServices = item.serviceType.split(', ');
+            checkboxes.forEach(cb => {
+                if (itemServices.includes(cb.value)) {
+                    cb.checked = true;
+                }
+            });
+        }
+
+        document.getElementById('cost').value = item.cost;
+        document.getElementById('notes').value = item.notes;
+        
+        submitBtn.innerHTML = `🔄 Perbarui Informasi`;
+        switchTab('form', document.getElementById('navFormBtn'));
+    }
+
+    function hapusCatatan(originalIndex) {
+        if (confirm("Apakah Anda yakin ingin menghapus data log ini secara permanen?")) {
+            dataServis.splice(originalIndex, 1);
+            simpanKeBrowser();
+            tampilkanRiwayat();
+        }
+    }
+
+    tampilkanRiwayat();
+</script>
+</body>
+</html>
